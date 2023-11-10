@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <h1>Caixa de Remedios!</h1>
+    <div>
+        <div class="inputs">
+            <div class="col-4">
+                <div class="mb-1">
+                    Nome
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="medicamento">
+            </div>
+            <div class="col-4">
+                <div class="mb-1">
+                    Quantidade
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="quantidade">
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-row-reverse">
+        <button class="btn btn-primary" (click)="adicionarNovoMedicamento()">
+            Adicionar
+        </button>
+    </div>
+    <div class="container">
+        <h3>Medicamentos Cadastrados</h3>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let medicamento of listaMedicamento; let i = index">
+                    {{medicamento.nome}} - {{medicamento.quantidade}} | <a href="#" (click)="excluirMedicamento(i)">Excluir</a> |
+                    {{medicamento.nome}} - {{medicamento.quantidade}} | <a href="*" (click)="chamarEditar(medicamento.nome, medicamento.quantidade)">Editar</a>
+                </li>
+            </ul>
+
+            <app-editar-medicamento-modal 
+                nomeMedicamento={{nomeMedicamentoEditar}}
+            novoNomeMedicamento={{nomeMedicamentoEditar}}
+            newQuantidade={{quantiaEditar}}></app-editar-medicamento-modal>  
+             
+    </div>
+
+    <!-- <div>
+        <form>
+            <input value={nomeMedicamentoEditar} type="text" formControlName="nomeMedicamentoAtual">
+            <input type="text" formControlName="newQuantidade">
+            
+        </form>
+    </div> -->
+
+    <section>
+        <form>
+          <input value={{nomeMedicamentoEditar}}>
+          <button class="primary" type="button">Editar</button>
+        </form>
+      </section>
+      <section class="results">
+        <app-editar-medicamento-modal></app-editar-medicamento-modal>
+      </section>
+
+
+</div>
