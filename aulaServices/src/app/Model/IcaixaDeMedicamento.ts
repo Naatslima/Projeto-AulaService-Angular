@@ -1,5 +1,4 @@
 export interface IcaixaDeMedicamento {
-    // id: number;
-    nome: String;
+    nome: string;
     quantidade: number;
 }

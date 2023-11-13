@@ -1,47 +1,49 @@
-import { Component, Input } from '@angular/core';
-import { IcaixaDeMedicamento } from '../Model/IcaixaDeMedicamento';
-//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-//import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from '@angular/core';
+import { CaixaDeRemedioService } from '../caixa-de-remedio/caixa-de-remedio.component.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-editar-medicamento-modal',
   templateUrl: './editar-medicamento-modal.component.html',
   styleUrls: ['./editar-medicamento-modal.component.scss']
 })
-export class EditarMedicamentoModalComponent {
-  @Input() medicamento!: IcaixaDeMedicamento;      
+export class EditarMedicamentoModalComponent implements OnInit {
 
   @Input()
-  nomeMedicamento: String="";
+  nomeMedicamento: string | any
   @Input()
-  novoNomeMedicamento: String="";
+  novoNomeMedicamento: string | any
   @Input()
-  newQuantidade: String="";   
+  newQuantidade: String | any
 
-  // formulario: FormGroup;
+  constructor(
+    private caixaDeRemedioService: CaixaDeRemedioService,
+    private route: ActivatedRoute
+    ) {}
 
-  // constructor(
- //   public activeModal: NgbActiveModal,
-  //   private fb: FormBuilder
-  // ) {
-  //   this.formulario = this.fb.group({
-  //     novoNomeMedicamento: ['', Validators.required],
-  //     newQuantidade: ['', [Validators.required, Validators.min(0)]],
-  //   })
-  // } 
-//   if (this.medicamento) {
-//     this.formulario.setValue ({
-//       novoNome: this.medicamento.nome,
-//       novaQuantidade: this.medicamento.quantidade,
-//     });
-//   }
-// }
-  
-//   salvarEdicao() {
-//     const novoNome = this.formulario.get('novoNome').value;
-//     const novaQuantidade = this.formulario.get('novaQuantidade').value;
-    
-//     this.activeModal.close({ novoNome, novaQuantidade });
-//   }
-  
+    ngOnInit(): void {
+      this.novoNomeMedicamento = this.route.snapshot.paramMap.get('nomeMedicamento');
+      this.nomeMedicamento = this.route.snapshot.paramMap.get('nomeMedicamento');
+      this.newQuantidade = this.route.snapshot.paramMap.get('newQuantidade');
+    }
+
+  EditarMedicamento() {
+    const index = this.caixaDeRemedioService.obterPorNome(this.nomeMedicamento)
+
+    const medicamentoEditado = this.caixaDeRemedioService.editar(
+      index,
+      this.novoNomeMedicamento,
+      Number(this.newQuantidade)
+    );
+    // console.log(medicamentoEditado)
+    // console.log(this.novoNomeMedicamento)
+    // console.log(this.newQuantidade)
+  }
+
+  setNome(nome: string) {
+    this.novoNomeMedicamento = nome
+  }
+  setQuantidade(quantidade: String) {
+    this.newQuantidade = quantidade
+  }
 }

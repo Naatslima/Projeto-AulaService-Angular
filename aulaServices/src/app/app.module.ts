@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CaixaDeRemedioComponent } from './caixa-de-remedio/caixa-de-remedio.component';
 import { FormsModule } from '@angular/forms';
-import { CaixaDeRemedioService } from './caixa-de-remedio/caixa-de-remedio.component.service';
 import { EditarMedicamentoModalComponent } from './editar-medicamento-modal/editar-medicamento-modal.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { EditarMedicamentoModalComponent } from './editar-medicamento-modal/edit
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
